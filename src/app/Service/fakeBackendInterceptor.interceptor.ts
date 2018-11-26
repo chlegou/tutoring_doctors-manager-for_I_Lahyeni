@@ -4,6 +4,9 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import {user1} from '../models/UserAccount.model';
 
+/**20181126: this file is created using a web tuto to handle backendless database
+ * link: http://jasonwatmore.com/post/2018/06/22/angular-6-mock-backend-example-for-backendless-development
+ */
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
 
@@ -53,7 +56,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
 
       // get user by id
-      if (request.url.match(/\/users\/\d+$/) && request.method === 'GET') {
+      /**20181126: Regex changed to match anything.
+       * new Regex: [\d\D]+
+       * link: https://stackoverflow.com/a/35352234/4771750
+       */
+      if (request.url.match(/\/users\/[\d\D]+$/) && request.method === 'GET') {
         // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
       //  if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
           // find user by id in users array

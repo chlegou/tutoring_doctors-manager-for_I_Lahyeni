@@ -1,3 +1,18 @@
+
+<hr/>
+<button (click)="getPatient(1)">Get Patient</button>
+<button (click)="removePatient()">Delete Patient</button>
 <p>
-  patients works!
+  patient:
 </p>
+<div *ngIf="!!patient">
+    <div>Nom: {{patient.nom}}</div>
+    <div>Prenom: {{patient.prenom}}</div>
+</div>
+<div *ngIf="!patient">
+    <div style="color: red;">No Patient Reached Yet.</div>
+</div>
+
+
+
+

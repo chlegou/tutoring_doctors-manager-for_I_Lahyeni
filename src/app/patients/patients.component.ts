@@ -10,20 +10,33 @@ import {UserAccount} from '../models/UserAccount.model';
 })
 export class PatientsComponent implements OnInit {
   userChangedSubscription: Subscription;
-  constructor(public Userservice :  UserService ) {
+  patient: any;
+  constructor(public userservice :  UserService ) {
 
   }
 
   ngOnInit() {
-    this.userChangedSubscription= this.Userservice.userChanged
+    // every subscription must be in OnInit!
+    this.userChangedSubscription= this.userservice.userChanged
       .subscribe(
         (user: UserAccount) => {
           console.log(user);
+          this.patient = user;
 
         }
       );
-    this.Userservice.getOne('1');
   }
+
+
+  getPatient(id: string){
+    this.userservice.getOne(id);
+  }
+  
+  // remove patient from front end only.
+  removePatient(){
+    this.patient = null;
+  }
+  
 
 
 }
